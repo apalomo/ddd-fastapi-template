@@ -1,0 +1,29 @@
+version: "3.5"
+services:
+
+  # Api server
+  api:
+    build: .
+    ports:
+      - 8000:8000
+
+  # Postgres
+  postgres:
+    restart: always
+    image: postgres:13
+    ports:
+      - "5434:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: blog
+    volumes:
+      - "postgres-data-blog:/var/lib/postgresql/data"
+    networks:
+      - postgres_blog
+
+volumes:
+  postgres-data-blog:
+networks:
+  postgres_blog:
+    driver: bridge

@@ -1,0 +1,46 @@
+[project]
+name = ""
+version = ""
+description = ""
+authors = [
+    {name = "Antonio Palomo", email = "antoniopiri87@gmail.com"},
+]
+dependencies = [
+    "fastapi>=0.75.2",
+    "SQLAlchemy>=1.4.36",
+    "uvicorn>=0.17.6",
+    "alembic>=1.7.7",
+    "psycopg2>=2.9.3",
+]
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+[tool.pdm]
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=7.1.2",
+    "pre-commit>=2.18.1",
+    "mypy>=0.950",
+    "flake8>=4.0.1",
+    "autopep8>=1.6.0",
+]
+
+[build-system]
+requires = ["pdm-pep517>=0.12.0"]
+build-backend = "pdm.pep517.api"
+
+[tool.pdm.scripts]
+start = "uvicorn src.infrastructure.server:app"
+start_dev = "uvicorn src.infrastructure.server:app --reload"
+
+alembic = "alembic"
+alembic_autogenerate = "alembic revision --autogenerate -m"
+alembic_upgrade = "alembic upgrade"
+
+test = "pytest"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
+testpaths = ["test"]
