@@ -26,6 +26,7 @@ dev = [
     "autopep8>=1.6.0",
     "pycln>=1.3.2",
     "isort>=5.10.1",
+    "pytest-cov>=3.0.0",
 ]
 
 [build-system]
@@ -41,8 +42,8 @@ alembic_autogenerate = "alembic revision --autogenerate -m"
 alembic_upgrade = "alembic upgrade"
 
 test = "pytest"
-coverage = "pytest -m \"not(django_db)\" --cov=."
-coverage-html = "pytest -m \"not(django_db)\" --cov=. --cov-report "
+coverage = "pytest  --cov=."
+coverage-html = "pytest --cov=. --cov-report "
 
 pre_commit = "pre-commit"
 pre_commit_install = "pre-commit install --hook-type pre-commit --hook-type pre-push"
@@ -51,3 +52,18 @@ pre_commit_install = "pre-commit install --hook-type pre-commit --hook-type pre-
 pythonpath = "src"
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 testpaths = ["test"]
+
+[tool.coverage.report]
+fail_under = 80
+skip_empty = true
+
+[tool.coverage.run]
+branch = true
+include = [
+    "*/*",
+]
+omit = [
+  "__pypackages__/*",
+    "*/test/*",
+    "**__init__.py"
+]
