@@ -10,12 +10,13 @@ dependencies = [
     "SQLAlchemy>=1.4.36",
     "uvicorn>=0.17.6",
     "alembic>=1.7.7",
-    "psycopg2>=2.9.3",
+    "psycopg2-binary>=2.9.7",
+    "pydantic>=2.3.0",
+    "dependency-injector>=4.41.0",
 ]
 requires-python = ">=3.8"
 license = {text = "MIT"}
 
-[project.optional-dependencies]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [
@@ -27,29 +28,30 @@ dev = [
     "pycln>=1.3.2",
     "isort>=5.10.1",
     "pytest-cov>=3.0.0",
+    "pytest-mock>=3.11.1",
 ]
 
-[build-system]
-requires = ["pdm-pep517>=0.12.0"]
-build-backend = "pdm.pep517.api"
-
 [tool.pdm.scripts]
-start = "uvicorn src.infrastructure.server:app"
-start_dev = "uvicorn src.infrastructure.server:app --reload"
+start = "uvicorn src.infrastructure.http.server:app"
+start_dev = "uvicorn src.infrastructure.http.server:app --reload"
 
 alembic = "alembic"
 alembic_autogenerate = "alembic revision --autogenerate -m"
 alembic_upgrade = "alembic upgrade"
 
-test = "pytest"
-coverage = "pytest  --cov=."
-coverage-html = "pytest --cov=. --cov-report "
+test = "python -m pytest"
+coverage = "pytest --cov=src"
+coverage-html = "pytest --cov=src --cov-report=html "
 
 pre_commit = "pre-commit"
 pre_commit_install = "pre-commit install --hook-type pre-commit --hook-type pre-push"
 
+[build-system]
+requires = ["pdm-pep517>=0.12.0"]
+build-backend = "pdm.pep517.api"
+
 [tool.pytest.ini_options]
-pythonpath = "src"
+pythonpath = [".", "__pypackages__/3.11/lib/"]
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 testpaths = ["test"]
 
@@ -60,10 +62,9 @@ skip_empty = true
 [tool.coverage.run]
 branch = true
 include = [
-    "*/*",
+    "*",
 ]
 omit = [
-  "__pypackages__/*",
-    "*/test/*",
-    "**__init__.py"
+    "__pypackages__/*",
+    "*__init__.py"
 ]

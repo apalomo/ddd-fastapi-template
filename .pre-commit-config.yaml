@@ -27,8 +27,8 @@ repos:
         stages: [commit]
         args: [--config=pyproject.toml]
         fail_fast: true
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.4
+  - repo: https://github.com/PyCQA/flake8
+    rev: 6.1.0
     hooks:
       - id: flake8
         args: [--max-line-length=200]

@@ -1,5 +1,5 @@
 # build stage
-FROM python:3.8 AS builder
+FROM python:3.11 AS builder
 
 # install PDM
 RUN pip install -U pip setuptools wheel
@@ -11,7 +11,7 @@ COPY src/ /project/src
 
 # install dependencies and project
 WORKDIR /project
-RUN pdm install --prod --no-lock --no-editable
+RUN mkdir __pypackages__ && pdm sync --prod --no-editable
 
 
 # run stage
