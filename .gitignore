@@ -4,6 +4,6 @@ __pypackages__
 
 .mypy_cache
 .pytest_cache
-.vscode
 
 .coverage
+htmlconv
