@@ -1,14 +1,17 @@
-# DDD SKELETON FAST-API
+# DDD FAST-API TEMPLATE
 
-Simple skeleton of a ddd project with api rest (fast-api) and database (postgres) in the infrastructure layer.
+Template of a ddd project webserver.
 
-Basic tecnologies:
+It contains the user entity, two endpoints create and list, the use cases called by these endpoints and the tests of all these code.
+
+Tecnologies:
 * python
-* pdm
 * fastapi
 * postgresql
 * sqlalchemy
+* alembic
 Devops to develop:
+* pdm
 * pytest
 * pre-commit
 * docker & docker-compose
