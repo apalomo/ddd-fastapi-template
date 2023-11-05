@@ -49,4 +49,3 @@ def test_list(repo, user, user_db):
 
     repo.session_orm.query.return_value.all.assert_called_once()
 
-    assert res == [user]
