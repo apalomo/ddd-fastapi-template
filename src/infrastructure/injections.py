@@ -1,5 +1,5 @@
 """Containers module."""
-
+import os
 from dependency_injector import containers, providers
 from src.infrastructure.database.repos.user import RepoUsers
 
@@ -10,10 +10,10 @@ from sqlalchemy.orm import Session
 class Container(containers.DeclarativeContainer):
 
     wiring_config = containers.WiringConfiguration(packages=[".http.user"])
-
+    postgres_db = os.environ.get('POSTGRES_DB', '')
     engine_orm = providers.Factory(
         create_engine,
-        "postgresql://user:password@localhost:5434/blog"
+        postgres_db
     )
     session_orm = providers.Factory(
         Session,

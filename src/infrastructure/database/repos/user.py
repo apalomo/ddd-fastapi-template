@@ -1,6 +1,6 @@
 import logging
 import typing
-from domain.user.entity import User
+from src.domain.user.entity import User
 from src.domain.user.repo import RepoUsers as RepoUsersAbc
 from sqlalchemy.orm import Session
 from src.infrastructure.database.models import User as UserDb

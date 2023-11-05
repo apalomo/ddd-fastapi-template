@@ -1,3 +1,4 @@
+import os
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -13,6 +14,10 @@ config = context.config
 # This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+env_db_config = os.environ.get('POSTGRES_DB', '')
+if env_db_config:
+    config.set_section_option('alembic', 'sqlalchemy.url', env_db_config)
 
 # add your model's MetaData object here
 # for 'autogenerate' support

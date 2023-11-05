@@ -1,12 +1,5 @@
 version: "3.5"
 services:
-
-  # Api server
-  api:
-    build: .
-    ports:
-      - 8000:8000
-
   # Postgres
   postgres:
     restart: always
@@ -19,6 +12,17 @@ services:
       POSTGRES_DB: blog
     volumes:
       - "postgres-data-blog:/var/lib/postgresql/data"
+    networks:
+      - postgres_blog
+  # Api server
+  api:
+    build: .
+    ports:
+      - 8000:8000
+    environment:
+      POSTGRES_DB: postgresql://user:password@postgres:5432/blog
+    depends_on:
+      - postgres
     networks:
       - postgres_blog
 
