@@ -3,7 +3,7 @@ import logging
 from sqlalchemy.orm import Session
 from src.infrastructure.database.repos.user import RepoUsers
 from src.infrastructure.database.models import User as UserDb
-from domain.user.entity import User
+from src.domain.user.entity import User
 
 
 @pytest.fixture
