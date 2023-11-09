@@ -1,6 +1,6 @@
 [project]
 name = "DDD template fastapi"
-version = "1.0..0"
+version = "1.0.0"
 description = "Simple template of a ddd project with api rest (fast-api) and database (postgres) in the infrastructure layer."
 authors = [
     {name = "Antonio Palomo", email = "antoniopalomocardenas@gmail.com"},
