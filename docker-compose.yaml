@@ -29,6 +29,9 @@ services:
       - postgres
     networks:
       - postgres_ddd
+    volumes:
+      - ./src:/projects/src
+    command: ["pdm", "run", "start_dev"]
 
 volumes:
   postgres-data-ddd:
