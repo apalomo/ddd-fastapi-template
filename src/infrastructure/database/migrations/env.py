@@ -15,15 +15,22 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-env_db_config = os.environ.get('POSTGRES_DB', '')
+postgres_host = os.environ.get("POSTGRES_HOST", "")
+postgres_port = os.environ.get("POSTGRES_PORT", "")
+postgres_user = os.environ.get("POSTGRES_USER", "")
+postgres_password = os.environ.get("POSTGRES_PASSWORD", "")
+postgres_db = os.environ.get("POSTGRES_DB", "")
+
+env_db_config = f"postgresql://{postgres_user}:{postgres_password}@{postgres_host}:{postgres_port}/{postgres_db}"
 if env_db_config:
-    config.set_section_option('alembic', 'sqlalchemy.url', env_db_config)
+    config.set_section_option("alembic", "sqlalchemy.url", env_db_config)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.infrastructure.database.models import Base
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
@@ -70,9 +77,7 @@ def run_migrations_online():
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

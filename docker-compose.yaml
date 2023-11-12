@@ -9,25 +9,29 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: blog
+      POSTGRES_DB: ddd
     volumes:
-      - "postgres-data-blog:/var/lib/postgresql/data"
+      - "postgres-data-ddd:/var/lib/postgresql/data"
     networks:
-      - postgres_blog
+      - postgres_ddd
   # Api server
   api:
     build: .
     ports:
       - 8000:8000
     environment:
-      POSTGRES_DB: postgresql://user:password@postgres:5432/blog
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ddd
     depends_on:
       - postgres
     networks:
-      - postgres_blog
+      - postgres_ddd
 
 volumes:
-  postgres-data-blog:
+  postgres-data-ddd:
 networks:
-  postgres_blog:
+  postgres_ddd:
     driver: bridge
